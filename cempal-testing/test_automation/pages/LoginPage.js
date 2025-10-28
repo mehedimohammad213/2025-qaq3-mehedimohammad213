@@ -76,7 +76,7 @@ class LoginPage extends BasePage {
   async loginWithGoogle(googleEmail = testData.credentials.googleEmail) {
     await this.clickGoogleSignIn();
     await this.waitForNavigation();
-    
+
     // Handle Google account selection
     if (await this.isVisible(`//div[normalize-space()='${googleEmail}']`)) {
       await this.click(`//div[normalize-space()='${googleEmail}']`);
@@ -114,7 +114,7 @@ class LoginPage extends BasePage {
         '.error-message',
         '.alert-danger'
       ];
-      
+
       for (const selector of errorSelectors) {
         if (await this.isVisible(selector)) {
           return true;
@@ -140,7 +140,7 @@ class LoginPage extends BasePage {
       '.error-message',
       '.alert-danger'
     ];
-    
+
     for (const selector of errorSelectors) {
       if (await this.isVisible(selector)) {
         return await this.getText(selector);
@@ -183,7 +183,7 @@ class LoginPage extends BasePage {
   async validateEmailField(email) {
     await this.enterEmail(email);
     await this.click(this.selectors.passwordInput); // Click outside to trigger validation
-    
+
     // Check for validation error
     const errorSelectors = [
       'text=Invalid email format',
@@ -191,7 +191,7 @@ class LoginPage extends BasePage {
       '[data-testid="email-error"]',
       '.field-error'
     ];
-    
+
     for (const selector of errorSelectors) {
       if (await this.isVisible(selector)) {
         return false;
@@ -219,8 +219,8 @@ class LoginPage extends BasePage {
    * @returns {Promise<boolean>} True if login form is visible
    */
   async isLoginFormVisible() {
-    return await this.isVisible(this.selectors.emailInput) && 
-           await this.isVisible(this.selectors.passwordInput) && 
+    return await this.isVisible(this.selectors.emailInput) &&
+           await this.isVisible(this.selectors.passwordInput) &&
            await this.isVisible(this.selectors.signInButton);
   }
 

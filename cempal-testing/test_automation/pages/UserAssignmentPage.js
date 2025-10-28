@@ -98,11 +98,11 @@ class UserAssignmentPage extends BasePage {
   async assignUser(userEmail, assignmentData = this.userAssignmentData) {
     await this.clickAssignButton(userEmail);
     await this.waitForElement('//div[@class="ant-modal-content"]');
-    
+
     await this.selectTenant(assignmentData.tenantName);
     await this.selectUserGroup(assignmentData.userGroup);
     await this.selectTeam(assignmentData.teamName);
-    
+
     await this.clickAssignSubmit();
     await this.waitForNavigation();
   }
@@ -146,17 +146,17 @@ class UserAssignmentPage extends BasePage {
   async getAvailableTenants() {
     await this.clickTenantDropdown();
     await this.wait(1000);
-    
+
     const tenantOptions = await this.page.locator('//div[@class="ant-select-item-option-content"]').all();
     const tenants = [];
-    
+
     for (const option of tenantOptions) {
       const text = await option.textContent();
       if (text && text.trim()) {
         tenants.push(text.trim());
       }
     }
-    
+
     return tenants;
   }
 
@@ -167,17 +167,17 @@ class UserAssignmentPage extends BasePage {
   async getAvailableUserGroups() {
     await this.clickGroupDropdown();
     await this.wait(1000);
-    
+
     const groupOptions = await this.page.locator('//div[contains(@class,"ant-select-item-option-content")]').all();
     const groups = [];
-    
+
     for (const option of groupOptions) {
       const text = await option.textContent();
       if (text && text.trim()) {
         groups.push(text.trim());
       }
     }
-    
+
     return groups;
   }
 
@@ -188,17 +188,17 @@ class UserAssignmentPage extends BasePage {
   async getAvailableTeams() {
     await this.clickTeamDropdown();
     await this.wait(1000);
-    
+
     const teamOptions = await this.page.locator('//div[@title]').all();
     const teams = [];
-    
+
     for (const option of teamOptions) {
       const title = await option.getAttribute('title');
       if (title && title.trim()) {
         teams.push(title.trim());
       }
     }
-    
+
     return teams;
   }
 
@@ -266,7 +266,7 @@ class UserAssignmentPage extends BasePage {
       await searchInput.fill(searchTerm);
       await this.wait(1000); // Wait for search results
     }
-    
+
     return await this.isVisible(`//td[contains(text(),'${searchTerm}')]`);
   }
 
@@ -339,7 +339,7 @@ class UserAssignmentPage extends BasePage {
     try {
       const userRow = this.page.locator(`//tr[td[contains(text(),'${userEmail}')]]`);
       const cells = await userRow.locator('td').all();
-      
+
       return {
         email: await cells[0]?.textContent() || '',
         name: await cells[1]?.textContent() || '',

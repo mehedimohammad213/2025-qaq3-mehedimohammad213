@@ -207,7 +207,7 @@ class DashboardPage extends BasePage {
       this.selectors.tenantListLink,
       this.selectors.superAdminsLink
     ];
-    
+
     for (const item of menuItems) {
       if (await this.isVisible(item)) {
         return true;
@@ -236,7 +236,7 @@ class DashboardPage extends BasePage {
       'team_lead': '//a[contains(text(),"Team")]',
       'employee': '//a[contains(text(),"Profile")]'
     };
-    
+
     const selector = roleSelectors[role.toLowerCase()];
     if (selector) {
       return await this.isVisible(selector);

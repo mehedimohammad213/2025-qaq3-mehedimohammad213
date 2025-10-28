@@ -81,12 +81,12 @@ class TenantManagementPage extends BasePage {
   async createTenant(tenantData = this.tenantData) {
     await this.clickCreateNewTenant();
     await this.waitForElement('//div[@class="ant-modal-content"]');
-    
+
     await this.fillTenantName(tenantData.name);
     await this.fillDomainName(tenantData.domain);
     await this.fillContactEmail(tenantData.contactEmail);
     await this.fillAddress(tenantData.address);
-    
+
     await this.clickCreateTenantSubmit();
     await this.waitForNavigation();
   }
@@ -116,10 +116,10 @@ class TenantManagementPage extends BasePage {
       'edit_note': '//span[@aria-label="edit_note"]',
       'groups': '//span[@aria-label="groups"]'
     };
-    
+
     // Find the row containing the tenant name
     const tenantRow = this.page.locator(`//tr[td[contains(text(),'${tenantName}')]]`);
-    
+
     // Click the specific action button in that row
     const actionButton = tenantRow.locator(actionSelectors[action]);
     await actionButton.click();
@@ -140,7 +140,7 @@ class TenantManagementPage extends BasePage {
   async editTenant(tenantName, updatedData) {
     await this.clickTenantAction(tenantName, 'edit_note');
     await this.waitForElement('//div[@class="ant-modal-wrap"]');
-    
+
     // Update fields if provided
     if (updatedData.name) {
       await this.fillTenantName(updatedData.name);
@@ -154,7 +154,7 @@ class TenantManagementPage extends BasePage {
     if (updatedData.address) {
       await this.fillAddress(updatedData.address);
     }
-    
+
     await this.clickUpdateTenant();
     await this.waitForNavigation();
   }
@@ -238,7 +238,7 @@ class TenantManagementPage extends BasePage {
       await searchInput.fill(searchTerm);
       await this.wait(1000); // Wait for search results
     }
-    
+
     return await this.findTenantInList(searchTerm);
   }
 
@@ -259,7 +259,7 @@ class TenantManagementPage extends BasePage {
     try {
       const tenantRow = this.page.locator(`//tr[td[contains(text(),'${tenantName}')]]`);
       const cells = await tenantRow.locator('td').all();
-      
+
       return {
         name: await cells[0]?.textContent() || '',
         domain: await cells[1]?.textContent() || '',
